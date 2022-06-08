@@ -58,12 +58,12 @@ export default function DataValidation() {
             <div class="table" key={i}>
               <h2>{institutions.filter(institution => institution.id === institutionId)[0].name}</h2>
               <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                <Table sx={{ maxWidth: 650 }} aria-label="simple table">
                   <TableHead>
                     <TableRow>
                       <TableCell align="right" sx={{ color: "whitesmoke" }} >Property</TableCell>
-                      <TableCell align="right" sx={{ color: "whitesmoke" }} >Returned</TableCell>
-                      <TableCell align="right" sx={{ color: "whitesmoke" }} >Out of</TableCell>
+                      <TableCell align="right" sx={{ color: "whitesmoke" }} >Times it was populated</TableCell>
+                      <TableCell align="right" sx={{ color: "whitesmoke" }} >out of</TableCell>
                       <TableCell align="right" sx={{ color: "whitesmoke" }} >Reliability</TableCell>
                     </TableRow>
                   </TableHead>
