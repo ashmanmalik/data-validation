@@ -3,9 +3,11 @@ import axios from 'axios';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper} from '@mui/material';
 
 export default function DataValidation() {
-  const [accounts, setAccounts] = useState([])
-  const [groupedInstitutions, setGroupedInstitutions] = useState([])
-  const [institutions, setInstitutions] = useState()
+  const [accounts, setAccounts] = useState([]);
+  const [groupedInstitutions, setGroupedInstitutions] = useState([]);
+  const [institutions, setInstitutions] = useState();
+  
+  const excludeInstitutions = ["AU00000", "AU00001", "AU01201", "AU00302", "AU12301", "AU15701", "AU15001", "AU14601", "AU15601", "AU16101", "AU14701", "AU14801", "AU15101", "AU16301", "AU16401", "AU16201", "AU14901", "AU08901", "AU17001", "AU14501", "AU19401", "AU02201", "AU06701", "AU09301", "AU13601"]
 
   useEffect(() => {
     axios
@@ -24,7 +26,7 @@ export default function DataValidation() {
           axios
           .get('/api/accounts', { params: { userId } })
           .then(res => {
-            let nonTests = res.data.filter(account => account.institution !== 'AU00000' && account.institution !== 'AU00001')
+            let nonTests = res.data.filter(account => !excludeInstitutions.some(excluded => account.institution === excluded))
             setAccounts(accounts => accounts.concat(nonTests));
           })
           .catch(error => {
@@ -55,7 +57,7 @@ export default function DataValidation() {
           let properties = ['accountHolder', 'accountNo', 'name', 'currency', 'class', 'balance', 'availableFunds', 'lastUpdated', 'transactionIntervals', 'institution'];
 
           return (
-            <div class="table" key={i}>
+            <div className="table" key={i}>
               <h2>{institutions.filter(institution => institution.id === institutionId)[0].name}</h2>
               <TableContainer component={Paper}>
                 <Table sx={{ maxWidth: 650 }} aria-label="simple table">
