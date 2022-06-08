@@ -48,6 +48,7 @@ export default function DataValidation() {
   return (
     <>
       <main className="text-black bg-white">
+      <h1>Data points returned by institutions</h1>
         {groupedInstitutions.map((accounts, i) => {
           let institutionId = accounts[0].institution;
 
@@ -60,10 +61,10 @@ export default function DataValidation() {
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                   <TableHead>
                     <TableRow>
-                      <TableCell>Property</TableCell>
-                      <TableCell align="right">Returned</TableCell>
-                      <TableCell align="right">Out of</TableCell>
-                      <TableCell align="right">Reliability</TableCell>
+                      <TableCell align="right" sx={{ color: "whitesmoke" }} >Property</TableCell>
+                      <TableCell align="right" sx={{ color: "whitesmoke" }} >Returned</TableCell>
+                      <TableCell align="right" sx={{ color: "whitesmoke" }} >Out of</TableCell>
+                      <TableCell align="right" sx={{ color: "whitesmoke" }} >Reliability</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
