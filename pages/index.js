@@ -59,8 +59,8 @@ export default function DataValidation() {
           return (
             <div className="table" key={i}>
               <h2>{institutions.filter(institution => institution.id === institutionId)[0].name}</h2>
-              <TableContainer component={Paper}>
-                <Table sx={{ maxWidth: 650 }} aria-label="simple table">
+              <TableContainer  component={Paper}>
+                <Table aria-label="simple table">
                   <TableHead>
                     <TableRow>
                       <TableCell align="right" sx={{ color: "whitesmoke" }} >Property</TableCell>
