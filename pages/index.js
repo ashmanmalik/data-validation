@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { ConnectNow } from '../components/ConnectNow';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper} from '@mui/material';
 
 export default function DataValidation() {
   const [accounts, setAccounts] = useState([]);
   const [groupedInstitutions, setGroupedInstitutions] = useState([]);
   const [institutions, setInstitutions] = useState();
-  
-  const excludeInstitutions = ["AU00000", "AU00001", "AU01201", "AU00302", "AU12301", "AU15701", "AU15001", "AU14601", "AU15601", "AU16101", "AU14701", "AU14801", "AU15101", "AU16301", "AU16401", "AU16201", "AU14901", "AU08901", "AU17001", "AU14501", "AU19401", "AU02201", "AU06701", "AU09301", "AU13601"]
 
   useEffect(() => {
     axios
@@ -48,9 +47,9 @@ export default function DataValidation() {
   }, [accounts])
 
   return (
-    <>
       <main className="text-black bg-white">
       <h1>Data points returned by institutions</h1>
+      <ConnectNow />
         {groupedInstitutions.map((accounts, i) => {
           let institutionId = accounts[0].institution;
 
@@ -80,7 +79,6 @@ export default function DataValidation() {
           )
         })}
       </main>
-    </>
   );
 }
 
@@ -117,3 +115,29 @@ const percentageReturned = (accounts, key) => {
       </TableRow>
   )
 }
+
+const excludeInstitutions = [
+  "AU12301",
+  "AU00000",
+  "AU00001",
+  "AU15701",
+  "AU15001",
+  "AU14601",
+  "AU15601",
+  "AU16101",
+  "AU14701",
+  "AU14801",
+  "AU15101",
+  "AU16301",
+  "AU16401",
+  "AU16201",
+  "AU14901",
+  "AU08901",
+  "AU17001",
+  "AU14501",
+  "AU19401",
+  "AU02201",
+  "AU06701",
+  "AU09301",
+  "AU13601"
+]
