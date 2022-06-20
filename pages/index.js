@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { ConnectNow } from '../components/ConnectNow';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper} from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, CircularProgress} from '@mui/material';
 
 export default function DataValidation() {
   const [accounts, setAccounts] = useState([]);
+  const [loading, setLoading] = useState(true)
   const [groupedInstitutions, setGroupedInstitutions] = useState([]);
-  const [institutions, setInstitutions] = useState();
+  const [institutions, setInstitutions] = useState([]);
 
   useEffect(() => {
     axios
@@ -32,6 +33,7 @@ export default function DataValidation() {
             console.log(error)
           });
         });
+        setLoading(false);
       })
       .catch(error => {
         console.log(error)
@@ -48,38 +50,47 @@ export default function DataValidation() {
 
   return (
       <main className="text-black bg-white">
-      <h1>Data points returned by institutions</h1>
-      <ConnectNow />
+        <div className="about">
+          <h1>Data points returned by institutions</h1>
+          <p>Many of the data points returned from the Open Banking API's are optional, yet we have no visibility on what is being returned (or not) for each institution. We are currently trying to find a solution for this on a wider scale but we can trial this for an interim solution.</p>
+          <p>Please note that this is an internal tool only, so we can see at a glance which data points are being populated for each institution, and only covers data points we already offer through the Basiq API.</p>
+          <ConnectNow />
+        </div>
+        { loading && <CircularProgress /> }
         {groupedInstitutions.map((accounts, i) => {
-          let institutionId = accounts[0].institution;
+    let institutionId = accounts[0].institution;
 
-          let properties = ['accountHolder', 'accountNo', 'name', 'currency', 'class', 'balance', 'availableFunds', 'lastUpdated', 'transactionIntervals', 'institution'];
+    let properties = ['accountHolder', 'accountNo', 'name', 'currency', 'class', 'balance', 'availableFunds', 'lastUpdated', 'transactionIntervals', 'institution'];
 
-          return (
-            <div className="table" key={i}>
-              <h2>{institutions.filter(institution => institution.id === institutionId)[0].name}</h2>
-              <TableContainer  component={Paper}>
-                <Table aria-label="simple table">
-                  <TableHead>
-                    <TableRow>
-                      <TableCell align="right" sx={{ color: "whitesmoke" }} >Property</TableCell>
-                      <TableCell align="right" sx={{ color: "whitesmoke" }} >Times it was populated</TableCell>
-                      <TableCell align="right" sx={{ color: "whitesmoke" }} >out of</TableCell>
-                      <TableCell align="right" sx={{ color: "whitesmoke" }} >Reliability</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                  {properties.map((key) => {
-                      return percentageReturned(accounts, key)
-                    })}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            </div>
-          )
-        })}
+    return (
+      <div className="table" key={i}>
+        <h2>{institutions.filter(institution => institution.id === institutionId)[0].name}</h2>
+        <TableContainer  component={Paper}>
+          <Table aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell align="right" sx={{ color: "whitesmoke" }} >Property</TableCell>
+                <TableCell align="right" sx={{ color: "whitesmoke" }} >Times it was populated</TableCell>
+                <TableCell align="right" sx={{ color: "whitesmoke" }} >out of</TableCell>
+                <TableCell align="right" sx={{ color: "whitesmoke" }} >Reliability</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+            {properties.map((key) => {
+                return percentageReturned(accounts, key)
+              })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </div>
+    )
+  })}
       </main>
   );
+}
+
+function listData(institutions, groupedInstitutions) {
+  
 }
 
 function groupBy( array , f )
