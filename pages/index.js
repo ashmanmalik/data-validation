@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { ConnectNow } from '../components/ConnectNow';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, CircularProgress} from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, CircularProgress, Box} from '@mui/material';
 
 export default function DataValidation() {
   const [accounts, setAccounts] = useState([]);
@@ -56,7 +56,11 @@ export default function DataValidation() {
           <p>Please note that this is an internal tool only, so we can see at a glance which data points are being populated for each institution, and only covers data points we already offer through the Basiq API.</p>
           <ConnectNow />
         </div>
-        { loading && <CircularProgress /> }
+        { loading && 
+            <Box alignItems="space-between" sx={{ display: 'flex', justifyItems: 'center' }}>
+              <CircularProgress sx={{margin: '0 auto'}} />
+            </Box>
+        }
         {groupedInstitutions.map((accounts, i) => {
     let institutionId = accounts[0].institution;
 
