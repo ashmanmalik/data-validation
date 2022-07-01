@@ -51,7 +51,8 @@ export default function DataValidation() {
   return (
       <main className="text-black bg-white">
         <div className="about">
-          <h1>Data points returned by institutions</h1>
+          <h1>Data points returned by institutions via their Open Banking API's</h1>
+          <h3>Account level information</h3>
           <p>Many of the data points returned from the Open Banking API's are optional, yet we have no visibility on what is being returned (or not) for each institution. We are currently trying to find a solution for this on a wider scale but we can trial this for an interim solution.</p>
           <p>Please note that this is an internal tool only, so we can see at a glance which data points are being populated for each institution, and only covers data points we already offer through the Basiq API.</p>
           <ConnectNow />
