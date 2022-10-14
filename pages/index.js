@@ -94,10 +94,6 @@ export default function DataValidation() {
   );
 }
 
-function listData(institutions, groupedInstitutions) {
-  
-}
-
 function groupBy( array , f )
 {
   var groups = {};
@@ -113,6 +109,18 @@ function groupBy( array , f )
   })
 }
 
+const percentageMasked = (accounts) => {
+  let totalMasked = 0;
+
+  accounts.forEach((account) => {
+    account.accountNo.includes("*") || account.accountNo.includes("x") || account.accountNo.includes("X") || account.accountNo.includes("00000000")
+    ? totalMasked = totalMasked + 1 
+    : console.log("unmasked");
+  });
+
+  return totalMasked;
+}
+
 
 const percentageReturned = (accounts, key) => {
   const blank = "";
@@ -121,13 +129,16 @@ const percentageReturned = (accounts, key) => {
   
   let totalPopulated = totalLength - count;
   let percentageReturned = totalPopulated/totalLength * 100;
+  let masked = percentageMasked(accounts);
+
+  console.log((masked / totalPopulated))
 
   return (
       <TableRow key={key}>
         <TableCell align="right">{key}</TableCell>
         <TableCell align="right">{totalPopulated}</TableCell>
         <TableCell align="right">{totalLength}</TableCell>
-        <TableCell align="right">{Math.round(percentageReturned)}%</TableCell>
+        <TableCell align="right">{key === 'accountNo' ? `(${ Math.floor((masked / totalPopulated) * 100)}% masked)` : null} {Math.round(percentageReturned)}%</TableCell>
       </TableRow>
   )
 }
